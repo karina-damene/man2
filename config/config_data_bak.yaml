@@ -4,6 +4,6 @@ bak_file:
         AspNetUsers:
             Noms: df_asp_net_users.iloc[:,1] 
         PLC1:
-            Num_serie: df_plc1.iloc[0,5] 
+            Num_serie: df_plc1.iloc[0:5,5] 
         Tbl-Ref-BaseArticle:
             codeArticle: df_base_article.iloc[:,0]

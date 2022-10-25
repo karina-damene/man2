@@ -9,6 +9,11 @@ import yaml
 from pathlib import Path
 from modules.utils import ergonomy, data_agregation
 from modules import manage_bak_data, manage_sage_data
+from flask import Flask, request, render_template, session, redirect
+import numpy as np
+import pandas as pd
+import socket
+chanel_server = socket.gethostname()
 
 
 def main_bak():
@@ -25,14 +30,33 @@ def main_bak():
     for bak, tables in config.items():
         for table, data_parameted in tables.items():
             noms_qualite = manage_bak_data.manage_asp_net_users_from_config(data_parameted, df_asp_net_users)
-            print(noms_qualite)
+            num_serie = manage_bak_data.manage_plc1_from_config(data_parameted,df_plc1)
             noms_qualite = noms_qualite.reset_index()
-            nom_qualite_ht = noms_qualite.to_html()
-            print(nom_qualite_ht,nom_qualite_ht)
+            num_serie = num_serie.reset_index()
+            print(noms_qualite)
+            print(num_serie)
+            # list_df = [noms_qualite, num_serie]
+            # output = ""
+            # for index, df in enumerate(list_df):   
+            #     output += df.to_html() + '<br><h1>This is a heading</h1>'
+
+            # with open('output.html', 'w') as f:
+            #     f.writelines(output)   
+            #append_df_tohtml('simple.html', noms_qualite )
+            #append_df_tohtml('simple.html', num_serie )
+            
+            #append_df_tohtml ('simple.html', all_df_html)
+            # nom_qualite_ht = noms_qualite.to_html()
+            #noms_qualite.to_html(open('simple.html', 'w'))
+            #noms_qualite.to_html(open('simple.html', 'w'))
     
-    # load template dhr (.html)
-    # the needed data wil be written into dhr template to have edhr.html (complete)
-    # convert edhr.html to edhr.pdf
+def append_df_tohtml(html_filename, df ):
+        df.to_html(open(html_filename, 'w'))
+
+    
+# load template dhr (.html)
+# the needed data wil be written into dhr template to have edhr.html (complete)
+# convert edhr.html to edhr.pdf
 
 
 def main_sage():
@@ -40,9 +64,15 @@ def main_sage():
 
 
 def main():
-    #main_bak()
+    main_bak()
     #main_sage()
     pass
 
+
+
+
+
 if __name__ == "__main__":
-    main_bak()
+    main()
+
+    
