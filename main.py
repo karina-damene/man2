@@ -33,8 +33,6 @@ def main_bak():
             num_serie = manage_bak_data.manage_plc1_from_config(data_parameted,df_plc1)
             noms_qualite = noms_qualite.reset_index()
             num_serie = num_serie.reset_index()
-            print(noms_qualite)
-            print(num_serie)
             # list_df = [noms_qualite, num_serie]
             # output = ""
             # for index, df in enumerate(list_df):   
