@@ -3,7 +3,9 @@ bak_file:
     tables: 
         AspNetUsers:
             Noms: df_asp_net_users.iloc[:,1] 
+            NumSerie: null 
         PLC1:
-            Num_serie: df_plc1.iloc[0:5,5] 
+            Noms: null 
+            NumSerie: df_plc1.iloc[0:3,5] 
         Tbl-Ref-BaseArticle:
             codeArticle: df_base_article.iloc[:,0]
