@@ -28,16 +28,11 @@ def main_bak():
     df_base_article = df_bak_file_path[2]
     data_parameted, tables = load_yaml.load_yaml_func(r'config/config_data_bak.yaml')
     # then load yaml config to extract needed data
-    # with Path("config/config_data_bak.yaml").open() as f:
-    #     config = yaml.safe_load(f)
-    # for bak, tables in config.items():
-    #     for table, data_parameted in tables.items():
     noms_qualite = manage_bak_data.manage_asp_net_users_from_config(data_parameted, df_asp_net_users)
     num_serie = manage_bak_data.manage_plc1_from_config(data_parameted,df_plc1)
     noms_qualite = noms_qualite
     num_serie = num_serie
     a = pd.concat([noms_qualite, num_serie], axis=1)
-    print('#####')
     print(a)
     append_df_tohtml('out.html', a)
             # list_df = [noms_qualite, num_serie]
@@ -70,13 +65,17 @@ def main_sage():
 
 def main():
     
-    main_bak()
+    #main_bak()
     #main_sage()
-    pass
 
-
-
-
+    bak_file_paths = sorted(Path().rglob("*.bak"))
+    bak_file_path = ergonomy.request_file_path(bak_file_paths)
+    # parse .bak data 
+    df_bak_file_path = data_agregation.collect_df_from_sql(bak_file_path)
+    df= df_bak_file_path[1]
+    d = dict([*df.groupby(df['NumSerie'].ne(df['NumSerie'].shift()).cumsum())])
+    print(d[1])
+  
 
 if __name__ == "__main__":
     main()
