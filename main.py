@@ -7,13 +7,15 @@
 
 import yaml
 from pathlib import Path
-from modules.utils import ergonomy, data_agregation
-from modules import manage_bak_data, manage_sage_data
+from modules.utils import ergonomy, data_agregation, load_yaml 
+from modules.bak_data import manage_bak_data
+from modules.sage_data import manage_sage_data
 from flask import Flask, request, render_template, session, redirect
 import numpy as np
 import pandas as pd
 import socket
 chanel_server = socket.gethostname()
+
 
 
 def main_bak():
@@ -24,15 +26,20 @@ def main_bak():
     df_asp_net_users = df_bak_file_path[0]
     df_plc1 = df_bak_file_path[1]
     df_base_article = df_bak_file_path[2]
+    data_parameted, tables = load_yaml.load_yaml_func(r'config/config_data_bak.yaml')
     # then load yaml config to extract needed data
-    with Path("config/config_data_bak.yaml").open() as f:
-        config = yaml.safe_load(f)
-    for bak, tables in config.items():
-        for table, data_parameted in tables.items():
-            noms_qualite = manage_bak_data.manage_asp_net_users_from_config(data_parameted, df_asp_net_users)
-            num_serie = manage_bak_data.manage_plc1_from_config(data_parameted,df_plc1)
-            noms_qualite = noms_qualite.reset_index()
-            num_serie = num_serie.reset_index()
+    # with Path("config/config_data_bak.yaml").open() as f:
+    #     config = yaml.safe_load(f)
+    # for bak, tables in config.items():
+    #     for table, data_parameted in tables.items():
+    noms_qualite = manage_bak_data.manage_asp_net_users_from_config(data_parameted, df_asp_net_users)
+    num_serie = manage_bak_data.manage_plc1_from_config(data_parameted,df_plc1)
+    noms_qualite = noms_qualite
+    num_serie = num_serie
+    a = pd.concat([noms_qualite, num_serie], axis=1)
+    print('#####')
+    print(a)
+    append_df_tohtml('out.html', a)
             # list_df = [noms_qualite, num_serie]
             # output = ""
             # for index, df in enumerate(list_df):   
@@ -48,7 +55,7 @@ def main_bak():
             #noms_qualite.to_html(open('simple.html', 'w'))
             #noms_qualite.to_html(open('simple.html', 'w'))
     
-def append_df_tohtml(html_filename, df ):
+def append_df_tohtml(html_filename, df):
         df.to_html(open(html_filename, 'w'))
 
     
@@ -62,6 +69,7 @@ def main_sage():
 
 
 def main():
+    
     main_bak()
     #main_sage()
     pass

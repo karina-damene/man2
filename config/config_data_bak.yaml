@@ -6,6 +6,18 @@ bak_file:
             NumSerie: null 
         PLC1:
             Noms: null 
-            NumSerie: df_plc1.iloc[0:3,5] 
+            NumSerie: df_plc1.iloc[0:2,5] 
+            progtest: df_plc1.iloc[:,1]
+            versionprog: df_plc1.iloc[:, 2]
+            versionbanc: df_plc1.iloc[:,3]
+            numserie: df_plc1.iloc[:,5]
+            numlot: df_plc1.iloc[:,6]
+            valmini: df_plc1.iloc[:,10]
+            resultat: df_plc1.iloc[:,11]
+            valmaxi: df_plc1.iloc[:,12]
         Tbl-Ref-BaseArticle:
             codeArticle: df_base_article.iloc[:,0]
+        Tbl-Ref-Fab-Detail:
+            progtest: df_fab_detail.iloc[:,0]
+            versionprog: df_fab_detail.iloc[:,1]
+            ordrefcgf: df_fab_detail.iloc[:,5]

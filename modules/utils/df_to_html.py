@@ -6,6 +6,6 @@
 """
 
 
-def df_to_html(df):
-    # return edhr_html
-    pass 
+def append_df_tohtml(html_filename, complete_table_dataframe ):
+    complete_table_dataframe.to_html(open(html_filename, 'w'))
+

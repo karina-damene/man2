@@ -1,0 +1,6 @@
+#ici je dois concaténer les df des tableaux de config data bak yaml
+# exemple le tableau de fcgf final il aura des données qui viennt de plc1 et de Tbl-Ref-Fab-Detail
+FCGF: 
+    tables_FCGF:
+        date_de_production: null
+        identification_du_moyen: null

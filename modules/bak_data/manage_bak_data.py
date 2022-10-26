@@ -15,11 +15,11 @@ def manage_asp_net_users_from_config(parameters, df_bak):
 
 
 def manage_plc1_from_config(parameters, df_bak):
-    NumSerie = parameters["PLC1"]["NumSerie"]
-    if NumSerie:
-        NumSerie = df_bak 
-        NumSerie =  eval(NumSerie)
-    return df_asp_net_users
+    numseries = parameters["PLC1"]["NumSerie"]
+    if numseries:
+        df_plc1 = df_bak 
+        df_plc1 =  eval(numseries)
+    return df_plc1
 
 
 def manage_tbl_ref_basearticle_from_config(parameters, df_bak):
