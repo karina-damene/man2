@@ -10,7 +10,6 @@ bak_file:
             progtest: df_plc1.iloc[:,1]
             versionprog: df_plc1.iloc[:, 2]
             versionbanc: df_plc1.iloc[:,3]
-            numserie: df_plc1.iloc[:,5]
             numlot: df_plc1.iloc[:,6]
             valmini: df_plc1.iloc[:,10]
             resultat: df_plc1.iloc[:,11]

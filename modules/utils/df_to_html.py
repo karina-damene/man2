@@ -5,7 +5,8 @@
     Reviewer : Loic Morel & Patrick MONTEUX
 """
 
+from data_agregation import collect_df_from_sql
 
-def append_df_tohtml(html_filename, complete_table_dataframe ):
-    complete_table_dataframe.to_html(open(html_filename, 'w'))
-
+bak_file = 'PLCData_Lake_20221012'
+df_apt = collect_df_from_sql(bak_file)
+print(df_apt)

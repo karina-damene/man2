@@ -7,6 +7,11 @@
 import pandas as pd
 import pyodbc   
 import socket
+from datetime import date
+import time
+import sqlite3
+from sqlite3 import OperationalError
+
 
 def collect_df_from_sql(bak_file):
     chanel_server = socket.gethostname()
@@ -14,13 +19,14 @@ def collect_df_from_sql(bak_file):
                        f'Server={chanel_server};'
                        f'Database={bak_file};'
                        'Trusted_Connection=yes;')
-    
+
     sql_query1 = pd.read_sql_query(f'''
                                select * from {bak_file}.dbo.AspNetUsers
                                '''
                                ,conn) 
     df1 = pd.DataFrame(sql_query1)
-   
+
+
     sql_query2 = pd.read_sql_query(f'''
                                select * from {bak_file}.dbo.PLC1
                                '''
@@ -54,12 +60,27 @@ def collect_df_from_sql(bak_file):
     return df1, df2, df3, df4, df5, df6
 
 
+# collect each NmeSerie of date current from plc 
+def collect_plc_from_bak(bak_file):
+    df_plc1 = collect_df_from_sql(bak_file)[1]
+    d = dict([*df_plc1.groupby(df_plc1['NumSerie'].ne(df_plc1['NumSerie'].shift()).cumsum())])
+    print(d[1])
+    today = date.today()
+    print(today)
+    print(time.strftime("%d%m%Y"))
+  
+
 def collect_df_from_sage():
     pass 
 
-#PLCData_Lake_20221012
-# bak_fil = input("bak   ")
-# df1, df2, df3 = collect_df_from_sql(bak_fil)
-# print(df3.iloc[0,2])
+# def collect_df_from_sql(bak_file):
+#     chanel_server = socket.gethostname()
+#     conn = pyodbc.connect('Driver={SQL Server};'
+#                        f'Server={chanel_server};'
+#                        f'Database={bak_file};'
+#                        'Trusted_Connection=yes;')
 
+# conn = collect_df_from_sql('PLCData_Lake_20221012')
+# fd=open('req_cr_fcgf.sql','r') 
+# sqlFile = fd.read()
 
